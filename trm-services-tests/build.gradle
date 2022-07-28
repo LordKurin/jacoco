@@ -1,0 +1,26 @@
+apply plugin: 'txm-systemtest'
+
+serverTest {
+
+    assemblyToTest project(':transaction-manager-assembly')
+
+    useTestNG()
+
+    managedTasks {
+        ignoreFailures = true
+        jvmArgs '-Xmx1024m'
+    }
+}
+
+dependencies {
+
+    // project specific
+    serverRuntime project(':trm-services')
+    systemTestImplementation project (':trm-om')
+
+    systemTestImplementation ('com.dieboldnixdorf.txm.server-sdp:tm-universal-client-base')
+
+    includedDist 'com.dieboldnixdorf.txm.server-core:simulator-scripts'
+    includedDist 'com.dieboldnixdorf.txm.tools:chameleon'
+
+}
