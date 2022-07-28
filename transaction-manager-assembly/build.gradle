@@ -1,0 +1,99 @@
+apply plugin: 'txm-server-assembly'
+apply plugin: 'txm-publish'
+
+// jetty
+apply plugin: 'txm-jetty-assembly'
+bootstrap {
+    features += 'ws' //adds dependency to tm-boostrap-ws
+}
+
+dependencies {     serverRuntime ('com.dieboldnixdorf.txm.server-sdp:tm-security-bootstrap-sample-secret')
+
+	//Database Include
+	serverRuntime project(':trm-services')
+	serverRuntime project(':trm-om')
+	
+    serverRuntime ('com.dieboldnixdorf.txm.server-core:core-ocm-sample-dml')
+
+    // TM Developer Console
+    serverRuntime ('com.dieboldnixdorf.txm.server-core:scripts-server-wf')
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // BOUNDED CONTEXT Switch
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-authorization-router-bc')
+
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-channel-visadps-sc-services')
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-channel-visadps-bc')
+
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-channel-mastercardsms-sc-services')
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-channel-mastercardsms-bc')
+
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-consumer-identification-sc-services')
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-consumer-identification-config-ocm-wf')
+
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-carddata-sc-services')
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-carddata-ocm-wf')
+
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-account-sc-services')
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-account-services')
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-account-ocm-wf')
+
+    serverRuntime('com.dieboldnixdorf.txm.server-core:log-collection-ocm-wf')
+    // Backend-Simulator for OnUs consumers
+    serverRuntime ('com.dieboldnixdorf.txm.server-sdp:json-connector-chameleon-dml')
+
+    /////////////////////////////////////////////////////////////////////////////////
+    // KAFKA
+    serverRuntime ('com.dieboldnixdorf.txm.server-core:tm-kafka-connector-ocm-wf')
+    serverRuntime ('com.dieboldnixdorf.txm.server-core:tm-replication')
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // SHARED CONTEXT VYNAMIC TRANSACTION ENGINE
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-essentials')
+    serverRuntime('com.dieboldnixdorf.txm.server-core:tm-multiplexer-ocm-wf')
+
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-acquirerdata-ocm-wf')
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-responsecode-mapping-ocm-wf')
+
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-businesscalendar-ocm-wf')
+    serverRuntime('com.dieboldnixdorf.txm.server-core:tm-openidauthenticator-ocm-wf')
+
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-transactionlog-sc-services')
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-transactionlog-services')
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-transactionlog-search-ocm-wf')
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-transactionlog-postprocessing-ocm-wf')
+
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-crypt-services')
+    serverRuntime('com.dieboldnixdorf.txm.server-crypt:hsm-thalesemu')
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:tm-ic-server-wf')
+
+    serverRuntime('com.dieboldnixdorf.txm.server-sdp:json-connector')
+
+    serverRuntime ('com.dieboldnixdorf.txm.server-core:tm-rules-ocm-wf')
+    serverRuntime ('com.dieboldnixdorf.txm.server-sdp:tm-routing-rules-ocm-wf')
+
+    includedDist('com.dieboldnixdorf.txm.server-core:installjboss')
+    includedDist('com.dieboldnixdorf.txm.server-core:installwlp')
+    includedDist('com.dieboldnixdorf.txm.tools:chameleon')
+    includedDist('com.dieboldnixdorf.txm.tools:workbench')
+
+    includedDist('com.dieboldnixdorf.txm.server-sdp:testclient')
+}
+
+// jboss options patch
+installDist.filesMatching(['**/jbossoptions.orig']) {
+   filter { line -> line.replaceAll('Alpha.Farm.Cluster', 'Alpha.Trm.Cluster') }
+}
+
+// wlp options patch
+installDist.filesMatching(['**/wlpoptions.orig']) {
+   filter { line -> line.replaceAll('Alpha.Farm.Cluster', 'Alpha.Trm.Cluster') }
+   filter { line -> line.replaceAll('PCEPAR_LISTEN_PORT_HTTP_MANAGED=9080', 'PCEPAR_LISTEN_PORT_HTTP_MANAGED=8080') }
+}
+
+// jetty
+installDist.filesMatching(['**/tmoptions.orig']) {
+   filter { line -> line.replaceAll(/PCEPAR_LISTEN_PORT_HTTP_MANAGED=.*/, 'PCEPAR_LISTEN_PORT_HTTP_MANAGED=8080') }
+   filter { line -> line.replaceAll(/PCEPAR_LISTEN_PORT_HTTPS_MANAGED=.*/, 'PCEPAR_LISTEN_PORT_HTTPS_MANAGED=8443') }
+   filter { line -> line.replaceAll('Alpha.Farm.Cluster', 'Alpha.Trm.Cluster') }
+}

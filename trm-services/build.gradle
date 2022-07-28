@@ -1,0 +1,19 @@
+apply plugin: 'txm-lib'
+apply plugin: 'txm-sdp'
+apply plugin: 'txm-integrationtest'
+apply plugin: 'txm-jetty-integrationtest'
+
+
+serverTest {
+	useTestNG()
+}
+
+dependencies {
+	compileOnly 'javax:javaee-api'
+	implementation('com.dieboldnixdorf.txm.server-core:common')
+	implementation('com.dieboldnixdorf.txm.server-core:server-lib')
+	implementation ('com.dieboldnixdorf.txm.server-sdp:tm-core')
+	api project (':trm-om')
+	database project (':trm-services-ddl')
+	database project (':trm-services-dml')
+}

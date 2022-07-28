@@ -1,0 +1,6 @@
+apply plugin: 'txm-om'
+
+dependencies {
+	api ('com.dieboldnixdorf.txm.server-sdp:tm-common-om')
+	api ('com.dieboldnixdorf.txm.server-sdp:tm-businessdomain-om')
+}

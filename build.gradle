@@ -1,0 +1,19 @@
+buildscript {
+    dependencies {
+        classpath 'com.dieboldnixdorf.txm.build-core:build-core:3.1.0-Build.8'
+    }
+}
+
+apply plugin: 'txm-build-init'
+apply plugin: 'txm-om'
+
+
+allprojects {
+
+    group = 'com.jpmc.sbt-jpmc'
+
+    dependencyRecommendations {
+        mavenBom module: 'com.dieboldnixdorf.txm.delivery:delivery:3.1.0-Build.4'
+    }
+
+}
