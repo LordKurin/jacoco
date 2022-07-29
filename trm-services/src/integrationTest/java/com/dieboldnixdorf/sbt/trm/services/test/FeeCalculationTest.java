@@ -36,7 +36,7 @@ public class FeeCalculationTest extends Arquillian {
 
     @Test
     public void feeCalculationTest() {
-        // TODO: Implement test
+      
     	
     	ServiceTestHandler testHandler = PCEServiceLocator.getLocator(ServiceTestHandler.class).get();
     	FeeCalculation service = PCEServiceLocator.getLocator(FeeCalculation.class, new TransactionService.Literal(FeeCalculation.SERVICE_ID)).get();
@@ -60,14 +60,14 @@ public class FeeCalculationTest extends Arquillian {
 
     	// add facet to request
     	request.addFacet(purchaseAmount);
+    	
+        // create transaction step
+        ClientContext clientContext = new ClientContext(request.getHeader().getClientId());
+        TransactionStep step = clientContext.createConsumerSession().createTransaction().createTransactionStep(request);
 
     	// define parameters
     	Map<String, String> params = new HashMap<>();
     	        params.put("feePercentValue", "5");
-
-    	// set up context
-    	ClientContext clientContext = new ClientContext(request.getHeader().getClientId());
-    	TransactionStep step = clientContext.createConsumerSession().createTransaction().createTransactionStep(request);
 
     	// call service
     	ServiceResponse response = testHandler.callWithTestContext(service, step, params);
@@ -77,7 +77,7 @@ public class FeeCalculationTest extends Arquillian {
         Assert.assertEquals(response.getExtendedResponseCode(), ExtendedResponseCode.OK);
 
         // check fee calculated by service
-        Assert.assertEquals(step.getResponse().getFacet(PurchaseAmount.class).get().getFee().getValue(), 200l);
+        Assert.assertEquals(step.getResponse().getFacet(PurchaseAmount.class).get().getFee().getValue(), 500l);
     }
 
     @Test

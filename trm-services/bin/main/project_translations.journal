@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<conf:config xmlns:conf="http://www.myproclassic.com/pce/journal" xmlns:med="http://www.myproclassic.com/pce/journal/MediumView"
+    xmlns:min="http://www.myproclassic.com/pce/journal/MinimalView" xmlns:trans="http://www.myproclassic.com/pce/journal/Transformers"
+    xmlns:util="com.myproclassic.server.services.journal.transform.PCEXSLTransformUtil"
+    xmlns:vst="http://www.myproclassic.com/pce/journal/Visitors" xmlns:xalan="http://xml.apache.org/xslt"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    <conf:journal>
+        <conf:translations>
+            <conf:default path="locale/global/names">
+
+                <business_case_purchaseOrder>
+                    <en>Purchase Order</en>
+                </business_case_purchaseOrder>
+
+                <customer_identification>
+                    <en>CustomerIdentification</en>
+                </customer_identification>
+
+                <purchase_amount>
+                    <en>Purchase Amount</en>
+                </purchase_amount>
+
+            </conf:default>
+        </conf:translations>
+    </conf:journal>
+</conf:config>

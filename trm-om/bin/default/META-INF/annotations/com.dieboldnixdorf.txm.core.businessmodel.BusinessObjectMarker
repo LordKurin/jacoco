@@ -1,0 +1,3 @@
+com.dieboldnixdorf.sbt.trm.businessobjects.CustomerIdentification
+com.dieboldnixdorf.sbt.trm.businessobjects.PurchaseAmount
+com.dieboldnixdorf.sbt.trm.businessobjects.TimeSinceLastTransaction

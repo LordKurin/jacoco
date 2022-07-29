@@ -1,0 +1,4 @@
+com.dieboldnixdorf.sbt.trm.services.FeeCalculation
+com.dieboldnixdorf.sbt.trm.services.FeeDecision
+com.dieboldnixdorf.sbt.trm.services.TimestampReader
+com.dieboldnixdorf.sbt.trm.services.TimestampWriter

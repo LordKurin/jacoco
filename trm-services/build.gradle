@@ -2,6 +2,7 @@ apply plugin: 'txm-lib'
 apply plugin: 'txm-sdp'
 apply plugin: 'txm-integrationtest'
 apply plugin: 'txm-jetty-integrationtest'
+apply plugin: 'txm-jacoco'
 
 
 serverTest {

@@ -12,12 +12,14 @@ import com.dieboldnixdorf.txm.core.businessmodel.businessobjects.ExtendedRespons
 import com.dieboldnixdorf.txm.core.businessmodel.container.TransactionStep;
 import com.dieboldnixdorf.txm.core.businessmodel.facets.FacetConsumer;
 import com.dieboldnixdorf.txm.core.businessmodel.facets.FacetProducer;
+import com.dieboldnixdorf.txm.core.businessmodel.services.Parameter;
 import com.dieboldnixdorf.txm.core.businessmodel.services.ResponseCode;
 import com.dieboldnixdorf.txm.core.businessmodel.services.Service;
 import com.dieboldnixdorf.txm.core.businessmodel.services.ServiceImplementation;
 import com.dieboldnixdorf.txm.core.businessmodel.services.ServiceResponse;
 import com.dieboldnixdorf.txm.core.businessmodel.services.annotations.ExtRspCode;
 import com.dieboldnixdorf.txm.core.businessmodel.services.annotations.RspCode;
+import com.dieboldnixdorf.txm.core.businessmodel.services.annotations.ServiceParameter;
 import com.dieboldnixdorf.txm.core.businessmodel.services.annotations.TransactionService;
 import com.dieboldnixdorf.txm.core.businessobjects.financial.amount.Amount;
 import com.dieboldnixdorf.txm.core.businessobjects.financial.amount.Currency;
@@ -54,6 +56,10 @@ public class FeeCalculation implements Service {
 	@Inject
 	private FacetProducer<PurchaseAmount> fpPurchaseWithFeeAmount;
 	
+	@Inject
+	@ServiceParameter(defaultValue = "2")
+	private Parameter<Double> feePercentValue;
+	
 	@Override
 	public ServiceResponse apply(TransactionStep step, Map<String, String> parameter) {
 	    return ServiceImplementation.create().apply(this::implementation, step, parameter);
@@ -73,7 +79,7 @@ public class FeeCalculation implements Service {
 	        PCETrace.trace("Amount value: {}", value);
 	        
 	        // calculate fee (2% of req. amount))
-	        double fee = value * 0.02;
+	        double fee = value * feePercentValue.get().doubleValue() / 100;
 
 	        PurchaseAmount amountWithFee = new PurchaseAmount.Builder()
 	                .requestedAmount(requestedAmount)

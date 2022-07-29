@@ -1,0 +1,32 @@
+{
+    "tableDefinitions": [],
+    "tableColumnMappings": [{
+            "tableName": "CUSTOM_FIELDS",
+            "type": "UI",
+            "mappings": [{
+                    "columnId": "COLID_CUST_FIELD1",
+                    "businessStepName": "purchaseOrder.process",
+                    "isRegExp": false,
+                    "facet": "customerIdentification",
+                    "jsonPointer": "id",
+                    "label": "customer_identification"
+                }
+            ]
+        },
+        {
+            "tableName": "AMOUNTS_AND_ACCOUNTS",
+            "type": "UI",
+            "mappings": [{
+                    "columnId": "COLID_AMOUNT1",
+                    "businessStepName": "purchaseOrder.process",
+                    "isRegExp": false,
+                    "facet": "purchaseAmount",
+                    "jsonPointer": "requestedAmount",
+                    "label": "purchase_amount"
+                }
+            ]
+        }
+    ],
+    "queries": [],
+    "queryParameterDefinitions": []
+}
