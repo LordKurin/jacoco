@@ -35,7 +35,12 @@ import com.myproclassic.common.tservices.tracelog.aspects.PCEAopTrace;
                 @RspCode(value = ResponseCode.OK, extRspCodes = {
                         @ExtRspCode(
                                 value = ExtendedResponseCode.OK_ID,
-                                name = "Fee Decided")
+                                name = "Fee Not Required")
+                        }),
+                @RspCode(value = ResponseCode.OK, extRspCodes = {
+                        @ExtRspCode(
+                                value = SbtExtendedResponseCodes.FEE_REQUIRED_ID,
+                                name = "Fee Required")
                         }),
                 @RspCode(value = ResponseCode.FAIL, extRspCodes = {
                         @ExtRspCode(

@@ -1,0 +1,26 @@
+apply plugin: 'txm-lib'
+apply plugin: 'txm-sdp'
+apply plugin: 'txm-integrationtest'
+apply plugin: 'txm-jetty-integrationtest'
+apply plugin: 'txm-jacoco'
+
+
+serverTest {
+	useTestNG()
+}
+
+dependencies {
+compileOnly 'javax:javaee-api'
+
+api project (':trm-om')
+
+implementation('com.dieboldnixdorf.txm.server-core:common')
+implementation('com.dieboldnixdorf.txm.server-core:server-lib')
+
+implementation ('com.dieboldnixdorf.txm.server-core:eisconnector')
+implementation ('com.dieboldnixdorf.txm.server-core:eisconnector-admin')
+runtimeOnly ('com.dieboldnixdorf.txm.server-core:eisconnector-http')
+
+implementation ('com.dieboldnixdorf.txm.server-sdp:tm-core')
+database project (':report-services-dml')
+}

@@ -10,14 +10,15 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import com.dieboldnixdorf.sbt.trm.businessobjects.CustomerIdentification;
-import com.dieboldnixdorf.sbt.trm.businessobjects.PurchaseAmount;
 import com.dieboldnixdorf.sbt.trm.businessobjects.TimeSinceLastTransaction;
 import com.dieboldnixdorf.sbt.trm.db.SBTPurchaseDAO;
 import com.dieboldnixdorf.sbt.trm.db.SBTPurchaseDTO;
 import com.dieboldnixdorf.txm.core.businessmodel.businessobjects.ExtendedResponseCode;
+import com.dieboldnixdorf.txm.core.businessmodel.container.Request;
 import com.dieboldnixdorf.txm.core.businessmodel.container.TransactionStep;
 import com.dieboldnixdorf.txm.core.businessmodel.facets.FacetConsumer;
 import com.dieboldnixdorf.txm.core.businessmodel.facets.FacetProducer;
+import com.dieboldnixdorf.txm.core.businessmodel.facets.FacetProducerStrategy;
 import com.dieboldnixdorf.txm.core.businessmodel.services.ResponseCode;
 import com.dieboldnixdorf.txm.core.businessmodel.services.Service;
 import com.dieboldnixdorf.txm.core.businessmodel.services.ServiceImplementation;
@@ -58,6 +59,7 @@ public class TimestampReader implements Service {
 	private FacetConsumer<CustomerIdentification> fcCustomerId;
 	
 	@Inject
+	@FacetProducerStrategy(Request.class)
 	private FacetProducer<TimeSinceLastTransaction> fpTimeSinceLastTransaction;
 	
 	@Override
